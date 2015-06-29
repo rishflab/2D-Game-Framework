@@ -142,6 +142,7 @@ void window::UpdateTextures(SDL_Texture* texture){
 	//SDL_RenderFillRect(sdlRenderer, &fillRect);
 
 
+
 	//Top left corner viewport
 	SDL_Rect topLeftViewport;
 	topLeftViewport.x = 0;
