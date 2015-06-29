@@ -4,48 +4,25 @@
 #include <stdio.h>
 
 
-class window
+class Window
 {
 public:
-	window();
-	~window();
+	Window();
+	~Window();
 
-	void loadSprite();
+	bool Closed();
 
-	void updateSprites();
-
-	bool closed();
-
-	//Loads individual image as texture
-	SDL_Texture* LoadTexture(char* path);
-
-	void window::UpdateTextures(SDL_Texture* texture);
-
-	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 480;
+	
+	Uint32 SCREEN_WIDTH = 1280;
+	Uint32 SCREEN_HEIGHT = 720;
 
 	bool quit;
 
 	//The window we'll be rendering to
 	SDL_Window* sdlWindow = NULL;
-
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
-
-	//The image we will load and show on the screen
-	SDL_Surface* sprite = NULL;
-
-	//The window renderer
 	SDL_Renderer* sdlRenderer = NULL;
-
-	//Current displayed texture
-	SDL_Texture* texture = NULL;
-
-
 
 
 	SDL_Event e;
-
-
 
 };
