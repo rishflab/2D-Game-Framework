@@ -7,13 +7,13 @@ Actor::Actor(Level* level)
 	
 }
 
-void Actor::SetTransform(Uint32 x, Uint32 y)
+void Actor::SetTransform(float32 x, float32 y)
 {
 	this->x = x;
 	this->y = y;
 }
 
-void Actor::SetSize(Uint32 w, Uint32 h)
+void Actor::SetSize(float32 w, float32 h)
 {
 	this->w = w;
 	this->h = h;
@@ -35,20 +35,55 @@ void Actor::RenderActor(char* filePath)
 	SDL_Rect rect;
 
 	
-	Uint32 scale = floor(this->level->window->SCREEN_HEIGHT / this->level->LEVEL_HEIGHT);
+	float32 scale = floor(this->level->window->SCREEN_HEIGHT / this->level->LEVEL_HEIGHT);
 	rect.x = floor((this->level->window->SCREEN_WIDTH / 2) - (this->x * scale)) - (scale*this->w/2);
-	rect.y = floor((this->level->window->SCREEN_HEIGHT / 2) - (this->y * scale)) - (scale*this->h/2);
-	rect.w = this->w * scale;
-	rect.h = this->h * scale;
+	rect.y = ceil((this->level->window->SCREEN_HEIGHT / 2) - (this->y * scale)) - (scale*this->h/2);
+	rect.w = floor(this->w * scale);
+	rect.h = floor(this->h * scale);
 
-	printf("%d %d \n", this->w, rect.y);
+	//printf("%f %f \n", this->w, rect.y);
 
 	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, this->angle, NULL, SDL_FLIP_NONE);
 
-	// loads in the renderer
-	SDL_RenderPresent(this->level->window->sdlRenderer);
 
-	SDL_RenderClear(this->level->window->sdlRenderer);
 
 	
+}
+
+void Actor::AddRectHitBox()
+{
+
+	
+	bodyDef.type = b2_staticBody;
+	bodyDef.position.Set(x, y);
+	
+	body = level->b2level->CreateBody(&bodyDef);
+	
+	playerBox.SetAsBox(w/2, h/2);
+	
+	fixtureDef.shape = &playerBox;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	
+	body->CreateFixture(&fixtureDef);
+	
+}
+
+void Actor::AddDynamicRectHitBox()
+{
+
+
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(x, y);
+
+	body = level->b2level->CreateBody(&bodyDef);
+
+	playerBox.SetAsBox(w/2, h/2);
+
+	fixtureDef.shape = &playerBox;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+
+	body->CreateFixture(&fixtureDef);
+
 }

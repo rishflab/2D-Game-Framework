@@ -16,15 +16,26 @@ public:
 
 	void RenderActor(char* filePath);
 
-	void SetTransform(Uint32 x, Uint32 y);
-	void SetSize(Uint32 w, Uint32 h);
+	void SetTransform(float32 x, float32 y);
+	void SetSize(float32 w, float32 h);
+
+	void AddRectHitBox();
+	void AddDynamicRectHitBox();
 
 
-	Uint32 x;
-	Uint32 y;
-	Uint32 w;
-	Uint32 h;
+	//actor physics variables
+	b2BodyDef bodyDef;
+	b2Body* body;
+	b2PolygonShape playerBox;
+	b2FixtureDef fixtureDef;
+
+	//actor transform variables
+	float32 x;
+	float32 y;
+	float32 w;
+	float32 h;
 	float32 angle;
+
 
 
 private:

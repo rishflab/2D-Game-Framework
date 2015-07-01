@@ -28,16 +28,48 @@ int main(){
 	Level* level = new Level(gameWindow, gravity);
 
 	Actor* jelly = new Actor(level);
+	jelly->SetTransform(0.0f, 2.0f);
+	jelly->SetSize(1.0f, 2.0f);
+	jelly->AddDynamicRectHitBox();
+	
 
-	jelly->SetTransform(0, 0);
+	Actor* platform = new Actor(level);
+	platform->SetTransform(0.0f, -3.0f);
+	platform->SetSize(1.0f, 1.0f);
+	platform->AddRectHitBox();
 
-	jelly->SetSize(2, 2);
 
-	level->RenderLevel("sprites/background.png");
 
-	jelly->RenderActor("sprites/jellyfish.png");
+	for (int i = 0; i < 100; i++)
+	{
 
-	SDL_Delay(2000);
+		level->Step();
+
+		b2Vec2 position = jelly->body->GetPosition();
+
+		jelly->SetTransform(position.x, position.y);
+
+		position = platform->body->GetPosition();
+
+		platform->SetTransform(position.x, position.y);
+
+		level->RenderLevel("sprites/background.png");
+
+		jelly->RenderActor("sprites/platform.png");
+
+		platform->RenderActor("sprites/platform.png");
+
+		// loads in the renderer
+		SDL_RenderPresent(level->window->sdlRenderer);
+
+		SDL_RenderClear(level->window->sdlRenderer);
+
+		SDL_Delay(20);
+	}
+
+	delete(jelly);
+	delete(level);
+	delete(gameWindow);
 
 }
 
