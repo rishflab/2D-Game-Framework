@@ -3,7 +3,6 @@
 #include "SDL/SDL_image.h"
 #include <stdio.h>
 
-
 class Window
 {
 public:

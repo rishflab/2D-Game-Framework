@@ -5,45 +5,75 @@
 #include "level.h"
 #include "actor.h"
 #include <math.h>
+#include "player.h"
+#include "ball.h"
 
 
 #undef main
 
-#define SHAPE_SIZE 50
-
 bool quit = false;
 
-SDL_Texture* jellyfishTexture = NULL;
+SDL_Event e;
 
 
 int main(){
-
-
-
+	// create game window
 	Window* gameWindow = new Window();
-
-
+	// create gravity force
 	b2Vec2 gravity(0.0f, -10.0f);
-
+	// create level in the game window with the gravity force
 	Level* level = new Level(gameWindow, gravity);
-
+	// create actor
 	Actor* jelly = new Actor(level);
-	jelly->SetTransform(0.0f, 2.0f);
+	// set position of the actor
+	jelly->SetTransform(-0.8f, 2.0f);
+	// set the size of the actor
 	jelly->SetSize(1.0f, 2.0f);
-	jelly->AddDynamicRectHitBox();
-	
+	// make the hit box of the actor dynamic
+	jelly->AddDynamicHitBox();
 
 	Actor* platform = new Actor(level);
 	platform->SetTransform(0.0f, -3.0f);
 	platform->SetSize(1.0f, 1.0f);
-	platform->AddRectHitBox();
+	platform->AddHitBox();
 
 
+	Ball* ball = new Ball(level);
+	ball->SetTransform(0.6f, 0.0f);
+	ball->SetSize(1.0f, 1.0f);
+	ball->AddDynamicHitBox();
 
-	for (int i = 0; i < 100; i++)
+	//Player* jellyPlayer = new Player(platform);
+
+	// main loop
+	while (1)
 	{
-
 		level->Step();
+
+		// gets keyboard input
+		const Uint8* keyState = SDL_GetKeyboardState(NULL);
+
+		//jellyPlayer->PlayerMove(keyState);
+		//if (keyState[SDL_SCANCODE_LEFT])
+			{
+				b2Vec2 velocity(0.8f, 0.0f);
+				b2Vec2 movement = jelly->body->GetPosition();
+				float32 angle = jelly->body->GetAngle();
+				//jelly->body->SetLinearVelocity(velocity);
+				jelly->body->SetTransform(movement, angle);
+				jelly->SetTransform(movement.x, movement.y);
+				jelly->angle = angle;
+				//printf("%f \n", angle);
+
+				movement = ball->body->GetPosition();
+				angle = ball->body->GetAngle();
+
+
+				ball->body->SetTransform(movement, angle);
+				ball->SetTransform(movement.x, movement.y);
+				ball->angle = angle;
+
+			}
 
 		b2Vec2 position = jelly->body->GetPosition();
 
@@ -53,20 +83,27 @@ int main(){
 
 		platform->SetTransform(position.x, position.y);
 
-		level->RenderLevel("sprites/background.png");
+		level->RenderLevel("sprites/forestbg1.png");
 
 		jelly->RenderActor("sprites/platform.png");
 
 		platform->RenderActor("sprites/platform.png");
 
+		ball->RenderActor("sprites/ball.png");
+
 		// loads in the renderer
 		SDL_RenderPresent(level->window->sdlRenderer);
-
+		// clears the renderer
 		SDL_RenderClear(level->window->sdlRenderer);
+		// checks if close button has been pressed and exits if so
+		SDL_PollEvent(&e);
+			if (e.type == SDL_QUIT)
+				{
+					break;
+				}
 
-		SDL_Delay(20);
 	}
-
+	// free alloc'd memory
 	delete(jelly);
 	delete(level);
 	delete(gameWindow);

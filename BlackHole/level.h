@@ -6,7 +6,6 @@
 #include "String.h"
 #include "window.h"
 
-
 class Level
 {
 public:

@@ -1,20 +1,15 @@
 #include "level.h"
 
-#include "actor.h"
-
-
 Level::Level(Window* window, b2Vec2 gravity)
-	:window(window), gravity(gravity)
+:window(window), gravity(gravity)
 {
 	b2level = new b2World(gravity);
 
 	timeStep = 1.0f / 60.0f;
-	
-	
+
 	velocityIterations = 6;
 	positionIterations = 2;
 	
-
 }
 
 void Level::Step()
