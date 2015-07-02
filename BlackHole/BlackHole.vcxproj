@@ -53,6 +53,10 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\BlackHole\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
+=======
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,7 +84,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="actor.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="collisionmanager.cpp" />
+=======
+    <ClCompile Include="ball.cpp" />
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
     <ClCompile Include="level.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="window.cpp" />
@@ -88,7 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actor.h" />
+<<<<<<< HEAD
     <ClInclude Include="collisionmanager.h" />
+=======
+    <ClInclude Include="ball.h" />
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
     <ClInclude Include="level.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="window.h" />

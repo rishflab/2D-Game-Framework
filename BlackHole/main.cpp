@@ -5,24 +5,36 @@
 #include "level.h"
 #include "actor.h"
 #include <math.h>
+<<<<<<< HEAD
 #include "collisionmanager.h"
 
+=======
+#include "player.h"
+#include "ball.h"
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 
 #undef main
 
 bool quit = false;
 
-SDL_Texture* jellyfishTexture = NULL;
+SDL_Event e;
 
 
 int main(){
+<<<<<<< HEAD
 
 
 	Window* gameWindow = new Window();
 
+=======
+	// create game window
+	Window* gameWindow = new Window();
+	// create gravity force
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 	b2Vec2 gravity(0.0f, -10.0f);
-
+	// create level in the game window with the gravity force
 	Level* level = new Level(gameWindow, gravity);
+<<<<<<< HEAD
 	
 	Actor* jelly = new Actor(level, "jelly");
 
@@ -30,8 +42,15 @@ int main(){
 	jelly->SetSize(1.0f, 2.0f);
 	jelly->AddDynamicRectHitBox(jelly);
 	jelly->angle = 0.0f;
+=======
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 	
+	Player* jelly = new Player(level);
+	jelly->SetTransform(0.0f, -1.2f);
+	jelly->SetSize(1.0f, 2.0f);
+	jelly->AddDynamicHitBox();
 
+<<<<<<< HEAD
 	Actor* platform = new Actor(level, "platform");
 	platform->SetTransform(0.0f, -3.0f); 
 	platform->SetSize(1.0f, 1.0f);
@@ -60,13 +79,39 @@ int main(){
 		collisionManager->Update();
 
 		b2Vec2 position = jelly->body->GetPosition();
+=======
+	Actor* platform = new Actor(level);
+	platform->angle = 0;
+	platform->SetTransform(0.0f, -3.0f);
+	platform->SetSize(10.0f, 1.0f);
+	platform->AddHitBox();
 
-		jelly->SetTransform(position.x, position.y);
 
+	Ball* ball = new Ball(level);
+	ball->SetTransform(0.0f, 3.0f);
+	ball->SetSize(1.0f, 1.0f);
+	ball->AddDynamicHitBox();
+
+	while (1)
+	{
+		level->Step();
+
+		//movement
+		jelly->PlayerMove();
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
+
+		//update the render positions of the object
+		jelly->UpdatePosition();
+		ball->UpdatePosition();
+
+<<<<<<< HEAD
 		position = platform->body->GetPosition();
 
 		platform->SetTransform(position.x, position.y);
 
+=======
+		level->RenderLevel("sprites/forestbg1.png");
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 
 
 		
@@ -74,10 +119,24 @@ int main(){
 		jelly->RenderActor("sprites/platform.png");
 		platform->RenderActor("sprites/platform.png");
 
+		ball->RenderActor("sprites/ball.png");
+
 		// loads in the renderer
 		SDL_RenderPresent(level->window->sdlRenderer);
+<<<<<<< HEAD
 		SDL_RenderClear(level->window->sdlRenderer);
 		SDL_Delay(20);
+=======
+		// clears the renderer
+		SDL_RenderClear(level->window->sdlRenderer);
+		// checks if close button has been pressed and exits if so
+		SDL_PollEvent(&e);
+			if (e.type == SDL_QUIT)
+				{
+					break;
+				}
+
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 	}
 
 	delete(jelly);

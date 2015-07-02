@@ -1,20 +1,15 @@
 #include "level.h"
 
-#include "actor.h"
-
-
 Level::Level(Window* window, b2Vec2 gravity)
-	:window(window), gravity(gravity)
+:window(window), gravity(gravity)
 {
 	b2level = new b2World(gravity);
 
 	timeStep = 1.0f / 60.0f;
-	
-	
+
 	velocityIterations = 6;
 	positionIterations = 2;
 	
-
 }
 
 void Level::Step()
@@ -36,15 +31,5 @@ void Level::RenderLevel(char* filePath)
 	SDL_FreeSurface(surface);
 
 	SDL_RenderCopyEx(window->sdlRenderer, texture, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-
-	// loads in the renderer
-	//SDL_RenderPresent(window->sdlRenderer);
-
-	//SDL_RenderClear(window->sdlRenderer);
-
-
+	SDL_DestroyTexture(texture);
 }
-//
-//Level::~Level(){
-//	delete b2level;
-//}

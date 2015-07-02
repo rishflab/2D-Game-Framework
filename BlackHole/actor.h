@@ -7,10 +7,10 @@
 #include "window.h"
 #include "level.h"
 
-
 class Actor
 {
 public:
+<<<<<<< HEAD
 
 	Actor(Level* level, char* name);
 
@@ -24,22 +24,30 @@ public:
 
 	char* name;
 
+=======
+>>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 	//actor physics variables
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape playerBox;
 	b2FixtureDef fixtureDef;
-
 	//actor transform variables
-	float32 x;
+	float32 x; // x and y represent the top left of the actor object. 
 	float32 y;
 	float32 w;
 	float32 h;
 	float32 angle;
 
+	Level* level;
 
+	Actor(Level* level);
+	void RenderActor(char* filePath);
+	void SetTransform(float32 x, float32 y);
+	void SetSize(float32 w, float32 h);
+	void AddHitBox();
+	void AddDynamicHitBox();
+	void UpdatePosition();
 
 private:
-
-	Level* level;
+	
 };
