@@ -8,7 +8,6 @@
 #include "player.h"
 #include "ball.h"
 
-
 #undef main
 
 bool quit = false;
@@ -23,13 +22,10 @@ int main(){
 	b2Vec2 gravity(0.0f, -10.0f);
 	// create level in the game window with the gravity force
 	Level* level = new Level(gameWindow, gravity);
-	// create actor
-	Actor* jelly = new Actor(level);
-	// set position of the actor
+	
+	Player* jelly = new Player(level);
 	jelly->SetTransform(-0.8f, 2.0f);
-	// set the size of the actor
 	jelly->SetSize(1.0f, 2.0f);
-	// make the hit box of the actor dynamic
 	jelly->AddDynamicHitBox();
 
 	Actor* platform = new Actor(level);
@@ -43,45 +39,16 @@ int main(){
 	ball->SetSize(1.0f, 1.0f);
 	ball->AddDynamicHitBox();
 
-	//Player* jellyPlayer = new Player(platform);
-
-	// main loop
 	while (1)
 	{
 		level->Step();
 
-		// gets keyboard input
-		const Uint8* keyState = SDL_GetKeyboardState(NULL);
+		//movement
+		jelly->PlayerMove();
 
-		//jellyPlayer->PlayerMove(keyState);
-		//if (keyState[SDL_SCANCODE_LEFT])
-			{
-				b2Vec2 velocity(0.8f, 0.0f);
-				b2Vec2 movement = jelly->body->GetPosition();
-				float32 angle = jelly->body->GetAngle();
-				//jelly->body->SetLinearVelocity(velocity);
-				jelly->body->SetTransform(movement, angle);
-				jelly->SetTransform(movement.x, movement.y);
-				jelly->angle = angle;
-				//printf("%f \n", angle);
-
-				movement = ball->body->GetPosition();
-				angle = ball->body->GetAngle();
-
-
-				ball->body->SetTransform(movement, angle);
-				ball->SetTransform(movement.x, movement.y);
-				ball->angle = angle;
-
-			}
-
-		b2Vec2 position = jelly->body->GetPosition();
-
-		jelly->SetTransform(position.x, position.y);
-
-		position = platform->body->GetPosition();
-
-		platform->SetTransform(position.x, position.y);
+		//update the render positions of the object
+		jelly->UpdatePosition();
+		ball->UpdatePosition();
 
 		level->RenderLevel("sprites/forestbg1.png");
 
@@ -103,7 +70,7 @@ int main(){
 				}
 
 	}
-	// free alloc'd memory
+
 	delete(jelly);
 	delete(level);
 	delete(gameWindow);

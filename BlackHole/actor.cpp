@@ -85,3 +85,13 @@ void Actor::AddDynamicHitBox()
 	body->CreateFixture(&fixtureDef);
 
 }
+
+void Actor::UpdatePosition()
+{
+	b2Vec2 movement = this->body->GetPosition();
+	float32 angle = this->body->GetAngle();
+
+	this->body->SetTransform(movement, angle);
+	this->SetTransform(movement.x, movement.y);
+	this->angle = angle;
+}

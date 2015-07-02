@@ -22,3 +22,4 @@ void Ball::AddDynamicHitBox()
 
 	body->CreateFixture(&fixtureDef);
 }
+

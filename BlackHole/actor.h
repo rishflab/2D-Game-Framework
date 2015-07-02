@@ -17,7 +17,7 @@ public:
 	void SetSize(float32 w, float32 h);
 	void AddHitBox();
 	void AddDynamicHitBox();
-
+	void UpdatePosition();
 
 	//actor physics variables
 	b2BodyDef bodyDef;

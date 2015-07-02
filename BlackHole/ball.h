@@ -14,5 +14,6 @@ public:
 
 	Ball::Ball(Level* level);
 	void AddDynamicHitBox();
+
 private:
 };
