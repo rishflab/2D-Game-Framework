@@ -9,7 +9,7 @@ CollisionManager::CollisionManager(Level* level)
 
 void CollisionManager::AddActor(Actor* actor)
 {
-	actorList.push_front(actor);
+	//actorList.push_front(actor);
 }
 
 

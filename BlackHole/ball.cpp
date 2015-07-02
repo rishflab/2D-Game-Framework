@@ -1,7 +1,7 @@
 #include "ball.h"
 
-Ball::Ball(Level* level)
-: Actor(level)
+Ball::Ball(Level* level, char* name)
+:Actor(level,name)
 {
 
 }

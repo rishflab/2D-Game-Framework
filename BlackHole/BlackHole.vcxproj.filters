@@ -30,11 +30,10 @@
     <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="collisionmanager.cpp">
-=======
     <ClCompile Include="ball.cpp">
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,11 +50,10 @@
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="collisionmanager.h">
-=======
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ball.h">
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

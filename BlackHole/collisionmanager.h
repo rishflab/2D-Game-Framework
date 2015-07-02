@@ -15,7 +15,6 @@ class CollisionManager
 public:
 
 	CollisionManager(Level* level);
-	
 
 	void AddActor(Actor* actor);
 

@@ -1,23 +1,24 @@
 #include "player.h"
 
-Player::Player(Level* level)
-: Actor(level)
+Player::Player(Level* level, char* name)
+: Actor(level, name)
 {
 	
 }
 
-void Player::AddDynamicHitBox()
+void Player::AddDynamicHitBox(Player* player)
 {
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
 	bodyDef.fixedRotation = true;
+	bodyDef.userData = player;
 
 	body = level->b2level->CreateBody(&bodyDef);
 	body->SetGravityScale(0);
 	playerBox.SetAsBox(w / 2, h / 2);
 
 	fixtureDef.shape = &playerBox;
-	fixtureDef.density = 10000000000.0f;
+	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 
 	body->CreateFixture(&fixtureDef);

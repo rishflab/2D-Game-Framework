@@ -12,7 +12,7 @@ class Ball : public Actor
 public:
 	b2CircleShape playerBox;
 
-	Ball::Ball(Level* level);
+	Ball::Ball(Level* level, char* name);
 	void AddDynamicHitBox();
 
 private:

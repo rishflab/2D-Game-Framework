@@ -10,9 +10,10 @@ class Player : public Actor
 public:
 	bool onGround;
 
-	Player(Level* level);
+	Player(Level* level, char* name);
+
 	void PlayerMove();
-	void AddDynamicHitBox();
+	void AddDynamicHitBox(Player* player);
 	void Jump();
 
 	bool IsGrounded();

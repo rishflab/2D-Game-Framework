@@ -1,13 +1,7 @@
 #include "actor.h"
 
-<<<<<<< HEAD
-
 Actor::Actor(Level* level, char* name)
-	:level(level), name(name)
-=======
-Actor::Actor(Level* level)
-:level(level)
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
+:level(level), name(name)
 {
 	
 }
@@ -48,21 +42,13 @@ void Actor::RenderActor(char* filePath)
 
 	//printf("%f %f \n", this->w, rect.y);
 
-<<<<<<< HEAD
-	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, this->angle, NULL, SDL_FLIP_NONE);
-
-}
-
-void Actor::AddRectHitBox(Actor* actor)
-=======
-	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, ceil((this->angle/b2_pi)*180.0f), NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, ceil((this->angle / b2_pi)*180.0f), NULL, SDL_FLIP_NONE);
 	SDL_DestroyTexture(texture);
+
 }
 
-void Actor::AddHitBox()
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
+void Actor::AddHitBox(Actor* actor)
 {
-
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(x, y);
 	bodyDef.userData = actor;
@@ -76,23 +62,17 @@ void Actor::AddHitBox()
 	fixtureDef.friction = 0.3f;
 	
 	body->CreateFixture(&fixtureDef);
-	
 }
 
-<<<<<<< HEAD
-void Actor::AddDynamicRectHitBox(Actor* actor)
-=======
-void Actor::AddDynamicHitBox()
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
-{
 
+void Actor::AddDynamicHitBox(Actor* actor)
+{
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
-<<<<<<< HEAD
+
 	bodyDef.userData = actor;
-=======
+
 	bodyDef.fixedRotation = false;
->>>>>>> 9a26e2fa757c5588fa24f250fc6bb1da9c9f1ddd
 
 	body = level->b2level->CreateBody(&bodyDef);
 	playerBox.SetAsBox(w/2, h/2);
@@ -107,8 +87,8 @@ void Actor::AddDynamicHitBox()
 
 void Actor::UpdatePosition()
 {
-
-	this->x = this->body->GetPosition().x;
-	this->y = this->body->GetPosition().y;
-	this->angle = this->body->GetAngle();
+	x = body->GetPosition().x;
+	y = body->GetPosition().y;
+	angle = body->GetAngle();
 }
+
