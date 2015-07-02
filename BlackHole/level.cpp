@@ -31,15 +31,5 @@ void Level::RenderLevel(char* filePath)
 	SDL_FreeSurface(surface);
 
 	SDL_RenderCopyEx(window->sdlRenderer, texture, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-
-	// loads in the renderer
-	//SDL_RenderPresent(window->sdlRenderer);
-
-	//SDL_RenderClear(window->sdlRenderer);
-
-
+	SDL_DestroyTexture(texture);
 }
-//
-//Level::~Level(){
-//	delete b2level;
-//}

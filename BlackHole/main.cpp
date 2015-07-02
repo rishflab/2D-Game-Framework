@@ -24,18 +24,19 @@ int main(){
 	Level* level = new Level(gameWindow, gravity);
 	
 	Player* jelly = new Player(level);
-	jelly->SetTransform(-0.8f, 2.0f);
+	jelly->SetTransform(0.0f, -1.2f);
 	jelly->SetSize(1.0f, 2.0f);
 	jelly->AddDynamicHitBox();
 
 	Actor* platform = new Actor(level);
+	platform->angle = 0;
 	platform->SetTransform(0.0f, -3.0f);
-	platform->SetSize(1.0f, 1.0f);
+	platform->SetSize(10.0f, 1.0f);
 	platform->AddHitBox();
 
 
 	Ball* ball = new Ball(level);
-	ball->SetTransform(0.6f, 0.0f);
+	ball->SetTransform(0.0f, 3.0f);
 	ball->SetSize(1.0f, 1.0f);
 	ball->AddDynamicHitBox();
 

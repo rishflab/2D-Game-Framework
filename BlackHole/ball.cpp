@@ -19,6 +19,7 @@ void Ball::AddDynamicHitBox()
 	fixtureDef.shape = &playerBox;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.6f;
 
 	body->CreateFixture(&fixtureDef);
 }

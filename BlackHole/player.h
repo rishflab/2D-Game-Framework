@@ -8,9 +8,14 @@
 class Player : public Actor
 {
 public:
+	bool onGround;
+
 	Player(Level* level);
 	void PlayerMove();
+	void AddDynamicHitBox();
+	void Jump();
 
+	bool IsGrounded();
 private:
 	
 };

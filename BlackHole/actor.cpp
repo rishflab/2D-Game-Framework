@@ -43,10 +43,7 @@ void Actor::RenderActor(char* filePath)
 	//printf("%f %f \n", this->w, rect.y);
 
 	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, ceil((this->angle/b2_pi)*180.0f), NULL, SDL_FLIP_NONE);
-
-
-
-	
+	SDL_DestroyTexture(texture);
 }
 
 void Actor::AddHitBox()
@@ -88,10 +85,8 @@ void Actor::AddDynamicHitBox()
 
 void Actor::UpdatePosition()
 {
-	b2Vec2 movement = this->body->GetPosition();
-	float32 angle = this->body->GetAngle();
 
-	this->body->SetTransform(movement, angle);
-	this->SetTransform(movement.x, movement.y);
-	this->angle = angle;
+	this->x = this->body->GetPosition().x;
+	this->y = this->body->GetPosition().y;
+	this->angle = this->body->GetAngle();
 }
