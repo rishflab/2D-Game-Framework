@@ -39,6 +39,7 @@ bool Window::Closed(){
 		}
 	}
 
+	return false;
 
 }
 

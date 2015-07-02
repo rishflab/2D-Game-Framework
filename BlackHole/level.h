@@ -17,6 +17,8 @@ public:
 
 	void Step();
 
+	
+
 	b2Vec2 gravity;
 
 	b2World* b2level;

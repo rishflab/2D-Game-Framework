@@ -1,8 +1,8 @@
 #include "actor.h"
 
 
-Actor::Actor(Level* level)
-:level(level)
+Actor::Actor(Level* level, char* name)
+	:level(level), name(name)
 {
 	
 }
@@ -45,17 +45,14 @@ void Actor::RenderActor(char* filePath)
 
 	SDL_RenderCopyEx(this->level->window->sdlRenderer, texture, NULL, &rect, this->angle, NULL, SDL_FLIP_NONE);
 
-
-
-	
 }
 
-void Actor::AddRectHitBox()
+void Actor::AddRectHitBox(Actor* actor)
 {
 
-	
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(x, y);
+	bodyDef.userData = actor;
 	
 	body = level->b2level->CreateBody(&bodyDef);
 	
@@ -69,12 +66,13 @@ void Actor::AddRectHitBox()
 	
 }
 
-void Actor::AddDynamicRectHitBox()
+void Actor::AddDynamicRectHitBox(Actor* actor)
 {
 
 
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
+	bodyDef.userData = actor;
 
 	body = level->b2level->CreateBody(&bodyDef);
 

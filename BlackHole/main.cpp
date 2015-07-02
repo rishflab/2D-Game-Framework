@@ -5,11 +5,10 @@
 #include "level.h"
 #include "actor.h"
 #include <math.h>
+#include "collisionmanager.h"
 
 
 #undef main
-
-#define SHAPE_SIZE 50
 
 bool quit = false;
 
@@ -19,31 +18,46 @@ SDL_Texture* jellyfishTexture = NULL;
 int main(){
 
 
-
 	Window* gameWindow = new Window();
-
 
 	b2Vec2 gravity(0.0f, -10.0f);
 
 	Level* level = new Level(gameWindow, gravity);
+	
+	Actor* jelly = new Actor(level, "jelly");
 
-	Actor* jelly = new Actor(level);
 	jelly->SetTransform(0.0f, 2.0f);
 	jelly->SetSize(1.0f, 2.0f);
-	jelly->AddDynamicRectHitBox();
+	jelly->AddDynamicRectHitBox(jelly);
+	jelly->angle = 0.0f;
 	
 
-	Actor* platform = new Actor(level);
-	platform->SetTransform(0.0f, -3.0f);
+	Actor* platform = new Actor(level, "platform");
+	platform->SetTransform(0.0f, -3.0f); 
 	platform->SetSize(1.0f, 1.0f);
-	platform->AddRectHitBox();
+	platform->AddRectHitBox(platform);
+	platform->angle = 0.0f;
+
+
+	printf("%p %p\n", platform, jelly);
+
+	CollisionManager* collisionManager = new CollisionManager(level);
 
 
 
-	for (int i = 0; i < 100; i++)
+	SDL_Event e;
+
+	while (1)
 	{
+		SDL_PollEvent(&e);
+		if (e.type == SDL_QUIT)
+		{
+			break;
+		}
 
 		level->Step();
+
+		collisionManager->Update();
 
 		b2Vec2 position = jelly->body->GetPosition();
 
@@ -53,17 +67,16 @@ int main(){
 
 		platform->SetTransform(position.x, position.y);
 
+
+
+		
 		level->RenderLevel("sprites/background.png");
-
 		jelly->RenderActor("sprites/platform.png");
-
 		platform->RenderActor("sprites/platform.png");
 
 		// loads in the renderer
 		SDL_RenderPresent(level->window->sdlRenderer);
-
 		SDL_RenderClear(level->window->sdlRenderer);
-
 		SDL_Delay(20);
 	}
 

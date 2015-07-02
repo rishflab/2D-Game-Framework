@@ -12,16 +12,17 @@ class Actor
 {
 public:
 
-	Actor(Level* level);
+	Actor(Level* level, char* name);
 
 	void RenderActor(char* filePath);
 
 	void SetTransform(float32 x, float32 y);
 	void SetSize(float32 w, float32 h);
 
-	void AddRectHitBox();
-	void AddDynamicRectHitBox();
+	void AddRectHitBox(Actor* actor);
+	void AddDynamicRectHitBox(Actor* actor);
 
+	char* name;
 
 	//actor physics variables
 	b2BodyDef bodyDef;
