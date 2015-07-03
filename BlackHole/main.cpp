@@ -9,7 +9,6 @@
 #include "player.h"
 #include "ball.h"
 
-
 #undef main
 
 bool quit = false;
@@ -25,45 +24,43 @@ int main(){
 
 	Level* level = new Level(gameWindow, gravity);
 
+	Actor* redActor = new Actor(level, "redActor");
+	redActor->SetTransform(0.0f, 0.0f);
+	redActor->SetSize(1.0f, 1.0f);
+	redActor->AddDynamicHitBox(redActor);
+	redActor->angle = 0.0f;
 
-	Actor* jelly = new Actor(level, "jelly");
-	jelly->SetTransform(0.0f, 2.0f);
-	jelly->SetSize(1.0f, 2.0f);
-	jelly->AddHitBox(jelly);
-	jelly->angle = 0.0f;
 
-
-	Player* player = new Player(level, "player");
-	player->SetTransform(5.0f, 0.0f);
-	player->SetSize(1.0f, 1.0f);
-	player->AddDynamicHitBox(player);
-	player->angle = 0.0f;
+	Player* bluePlayer = new Player(level, "bluePlayer");
+	bluePlayer->SetTransform(5.0f, 0.0f);
+	bluePlayer->SetSize(1.0f, 1.0f);
+	bluePlayer->AddDynamicHitBox(bluePlayer);
+	bluePlayer->angle = 0.0f;
 
 	Actor* platform = new Actor(level, "platform");
 	platform->SetTransform(0.0f, -3.0f); 
-	platform->SetSize(1.0f, 1.0f);
+	platform->SetSize(4.0f, 1.0f);
 	platform->AddHitBox(platform);
 	platform->angle = 0.0f;
 
 	//printf("%p %p\n", platform, jelly);
 
-
-
 	Ball* ball = new Ball(level, "ball");
-	ball->SetTransform(0.0f, 3.0f);
+	ball->SetTransform(-4.0f, 3.0f);
 	ball->SetSize(1.0f, 1.0f);
-	ball->AddDynamicHitBox();
+	ball->AddDynamicHitBox(ball);
 	
-
 	CollisionManager* collisionManager = new CollisionManager(level);
 
-	collisionManager->AddActor(jelly);
-	collisionManager->AddActor(player);
-	collisionManager->AddActor(platform);
-	collisionManager->AddActor(ball);
+	//collisionManager->AddActor(redActor);
+	//collisionManager->AddActor(bluePlayer);
+	//collisionManager->AddActor(platform);
+	//collisionManager->AddActor(ball);
 
 	SDL_Event e;
+	//printf("\n%p\n%p\n%p\n%p\n", ball, redActor, bluePlayer, platform);
 
+	collisionManager->Debug_PrintActors();
 
 	while (1)
 	{
@@ -71,23 +68,22 @@ int main(){
 		level->Step();
 
 		//movement
-		player->PlayerMove();
+		bluePlayer->PlayerMove();
 
 		//update the render positions of the object
-		jelly->UpdatePosition();
-		player->UpdatePosition();
+		redActor->UpdatePosition();
+		bluePlayer->UpdatePosition();
 		ball->UpdatePosition();
-		
 
+		collisionManager->Update();
 
 		level->RenderLevel("sprites/forestbg1.png");
 
-		player->RenderActor("sprites/platform.png");
+		bluePlayer->RenderActor("sprites/blue.png");
 	
-		jelly->RenderActor("sprites/platform.png");
+		redActor->RenderActor("sprites/red.png");
 		platform->RenderActor("sprites/platform.png");
 		ball->RenderActor("sprites/ball.png");
-		
 
 		// loads in the renderer
 		SDL_RenderPresent(level->window->sdlRenderer);
@@ -95,7 +91,9 @@ int main(){
 		SDL_RenderClear(level->window->sdlRenderer);
 
 		// checks if close button has been pressed and exits if so
+
 		SDL_PollEvent(&e);
+
 			if (e.type == SDL_QUIT)
 				{
 					break;

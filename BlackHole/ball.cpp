@@ -6,11 +6,12 @@ Ball::Ball(Level* level, char* name)
 
 }
 
-void Ball::AddDynamicHitBox()
+void Ball::AddDynamicHitBox(Ball* ball)
 {
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
 	bodyDef.fixedRotation = false;
+	bodyDef.userData = ball;
 
 	body = level->b2level->CreateBody(&bodyDef);
 	playerBox.m_p.Set(0.0f, 0.0f);

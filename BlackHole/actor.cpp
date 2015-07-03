@@ -92,3 +92,8 @@ void Actor::UpdatePosition()
 	angle = body->GetAngle();
 }
 
+//void Actor::RespondToCollision(Actor* actorA, Actor* actorB)
+//{
+//	if (actorA->name == )
+//}
+

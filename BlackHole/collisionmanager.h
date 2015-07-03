@@ -7,7 +7,7 @@
 #include "window.h"
 #include "actor.h"
 #include "level.h"
-#include <list>
+#include <vector>
 
 
 class CollisionManager
@@ -18,11 +18,13 @@ public:
 
 	void AddActor(Actor* actor);
 
+	void Debug_PrintActors();
+
 	void Update();
 
 	Level* level;
 
-	std::list<Actor*> actorList;
+	std::vector<Actor*> actorList;
 
 	int i = 1;
 	

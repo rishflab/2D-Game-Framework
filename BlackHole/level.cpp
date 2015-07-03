@@ -5,7 +5,7 @@ Level::Level(Window* window, b2Vec2 gravity)
 {
 	b2level = new b2World(gravity);
 
-	timeStep = 1.0f / 60.0f;
+	timeStep = 1.0f / 50.0f;
 
 	velocityIterations = 6;
 	positionIterations = 2;
@@ -16,7 +16,6 @@ void Level::Step()
 {
 	b2level->Step(timeStep, velocityIterations, positionIterations);
 }
-
 
 
 void Level::RenderLevel(char* filePath)

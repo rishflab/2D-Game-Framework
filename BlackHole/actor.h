@@ -11,7 +11,6 @@ class Actor
 {
 public:
 
-
 	Actor(Level* level, char* name);
 	void RenderActor(char* filePath);
 	void SetTransform(float32 x, float32 y);
@@ -21,7 +20,6 @@ public:
 	void AddDynamicHitBox(Actor* actor);
 
 	char* name;
-
 
 	//actor physics variables
 	b2BodyDef bodyDef;
@@ -37,8 +35,6 @@ public:
 	float32 angle;
 
 	Level* level;
-
-
 
 private:
 	

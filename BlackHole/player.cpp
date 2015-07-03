@@ -34,31 +34,31 @@ void Player::PlayerMove()
 
 	if (keyState[SDL_SCANCODE_A])
 	{
-		b2Vec2 velocity(0.8f, 0.0f);
+		b2Vec2 velocity(3.8f, 0.0f);
 		this->body->SetLinearVelocity(velocity);
 	}
 
 	if (keyState[SDL_SCANCODE_D])
 	{
-		b2Vec2 velocity(-0.8f, 0.0f);
+		b2Vec2 velocity(-3.8f, 0.0f);
 		this->body->SetLinearVelocity(velocity);
 	}
 
 	if (keyState[SDL_SCANCODE_W])
 	{
-		b2Vec2 velocity(0.0f, 0.8f);
+		b2Vec2 velocity(0.0f, 3.8f);
 		this->body->SetLinearVelocity(velocity);
 	}	
 
 	if (keyState[SDL_SCANCODE_S])
 	{
-		b2Vec2 velocity(0.0f, -0.8f);
+		b2Vec2 velocity(0.0f, -3.8f);
 		this->body->SetLinearVelocity(velocity);
 	}
-	if (keyState[SDL_SCANCODE_ESCAPE])
+	/*if (keyState[SDL_SCANCODE_ESCAPE])
 	{
 
-	}
+	}*/
 }
 
 void Player::Jump()
