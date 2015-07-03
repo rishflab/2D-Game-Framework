@@ -8,6 +8,7 @@
 #include "actor.h"
 #include "level.h"
 #include <list>
+#include "player.h"
 
 
 class CollisionManager
@@ -15,7 +16,7 @@ class CollisionManager
 public:
 
 	CollisionManager(Level* level);
-	
+	void Debug_PrintActors();
 
 	void AddActor(Actor* actor);
 

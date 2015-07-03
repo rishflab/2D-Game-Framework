@@ -9,37 +9,51 @@ CollisionManager::CollisionManager(Level* level)
 
 void CollisionManager::AddActor(Actor* actor)
 {
-	actorList.push_front(actor);
+	
 }
 
 
 void CollisionManager::Update()
 {
-
-
 	for (b2Contact* contact = level->b2level->GetContactList();
 		contact;
 		contact = contact->GetNext())
 	{
 		if (contact->IsTouching()){
 
-			//printf("collision occured!\n");
+			Actor* actorA = (Actor*)contact->GetFixtureA()->GetBody()->GetUserData();
+			Actor* actorB= (Actor*)contact->GetFixtureB()->GetBody()->GetUserData();
+		
+			//player->TakeDamage(actorB);
 
-			//actorA = (Actor*)contact->GetFixtureA()->GetBody()->GetUserData();
-			//actorB = (Actor*)contact->GetFixtureB()->GetBody()->GetUserData();
+			//printf("%s, % s\n", actorAName, actorBName);
 
-			char* actorBName = ((Actor*)contact->GetFixtureB()->GetBody()->GetUserData())->name;
-			char* actorAName = ((Actor*)contact->GetFixtureA()->GetBody()->GetUserData())->name;
+
+			if (actorA->name == "player")
+			{
+				for (b2Body* body = level->b2level->GetBodyList(); body; body = body->GetNext())
+				{
+					Actor* actor = ((Actor*)body->GetUserData());
+					if (actor == actorB)
+					{
+						(Player*)actorA->takeDamage(actorB->);
+					}
+					
+				}	
+			}
+			else if (actorB->name == "player")
+			{
+
+			}
+			else
+			{
+				//non player objects collided
+			}
+
+
 	
 
-			//printf("%p %p\n", actorA, actorB);
 
-			//printf("%s %s\n", actorA->name, actorB->name);
-
-			if ((actorAName == "jelly") && (actorBName == "platform"))
-			{
-				printf("collision between jelly and platform occured!\n");
-			}
 
 			/*if (i == 1)
 			{
@@ -50,6 +64,19 @@ void CollisionManager::Update()
 
 		}
 	}
-
-
 }
+
+
+void CollisionManager::Debug_PrintActors()
+{
+
+	for (b2Body* b = level->b2level->GetBodyList(); b; b = b->GetNext())
+	{
+		Actor* bodyName = ((Actor*)b->GetUserData());
+
+		printf("%s \n", bodyName->name);
+	}
+
+	
+}
+
