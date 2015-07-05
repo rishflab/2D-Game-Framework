@@ -9,6 +9,7 @@
 #include "level.h"
 #include <list>
 #include "player.h"
+#include <vector>
 
 
 class CollisionManager
@@ -16,6 +17,7 @@ class CollisionManager
 public:
 
 	CollisionManager(Level* level);
+
 	void Debug_PrintActors();
 
 	void AddActor(Actor* actor);
@@ -24,7 +26,7 @@ public:
 
 	Level* level;
 
-	std::list<Actor*> actorList;
+	std::vector<Actor*> actorList;
 
 	int i = 1;
 	

@@ -6,81 +6,104 @@
 #include "actor.h"
 #include <math.h>
 #include "collisionmanager.h"
-
+#include "player.h"
+#include "ball.h"
 
 #undef main
 
 bool quit = false;
 
-SDL_Texture* jellyfishTexture = NULL;
+SDL_Event e;
 
 
 int main(){
-
 
 	Window* gameWindow = new Window();
 
 	b2Vec2 gravity(0.0f, -10.0f);
 
 	Level* level = new Level(gameWindow, gravity);
-	
-	Actor* jelly = new Actor(level, "jelly");
 
-	jelly->SetTransform(0.0f, 2.0f);
-	jelly->SetSize(1.0f, 2.0f);
-	jelly->AddDynamicRectHitBox(jelly);
-	jelly->angle = 0.0f;
-	
+	Actor* redActor = new Actor(level, "redActor");
+	redActor->SetTransform(0.0f, 0.0f);
+	redActor->SetSize(1.0f, 1.0f);
+	redActor->AddDynamicHitBox(redActor);
+	redActor->angle = 0.0f;
+
+
+	Player* bluePlayer = new Player(level, "bluePlayer");
+	bluePlayer->SetTransform(5.0f, 0.0f);
+	bluePlayer->SetSize(1.0f, 1.0f);
+	bluePlayer->AddDynamicHitBox(bluePlayer);
+	bluePlayer->angle = 0.0f;
 
 	Actor* platform = new Actor(level, "platform");
 	platform->SetTransform(0.0f, -3.0f); 
-	platform->SetSize(1.0f, 1.0f);
-	platform->AddRectHitBox(platform);
+	platform->SetSize(4.0f, 1.0f);
+	platform->AddHitBox(platform);
 	platform->angle = 0.0f;
 
+	//printf("%p %p\n", platform, jelly);
 
-	printf("%p %p\n", platform, jelly);
-
+	Ball* ball = new Ball(level, "ball");
+	ball->SetTransform(-4.0f, 3.0f);
+	ball->SetSize(1.0f, 1.0f);
+	ball->AddDynamicHitBox(ball);
+	
 	CollisionManager* collisionManager = new CollisionManager(level);
 
-
+	//collisionManager->AddActor(redActor);
+	//collisionManager->AddActor(bluePlayer);
+	//collisionManager->AddActor(platform);
+	//collisionManager->AddActor(ball);
 
 	SDL_Event e;
 
+	//printf("\n%p\n%p\n%p\n%p\n", ball, redActor, bluePlayer, platform);
+
+
+	collisionManager->Debug_PrintActors();
+
 	while (1)
 	{
-		SDL_PollEvent(&e);
-		if (e.type == SDL_QUIT)
-		{
-			break;
-		}
 
 		level->Step();
 
+		//movement
+		bluePlayer->PlayerMove();
+
+		//update the render positions of the object
+		redActor->UpdatePosition();
+		bluePlayer->UpdatePosition();
+		ball->UpdatePosition();
+
 		collisionManager->Update();
 
-		b2Vec2 position = jelly->body->GetPosition();
+		level->RenderLevel("sprites/forestbg1.png");
 
-		jelly->SetTransform(position.x, position.y);
-
-		position = platform->body->GetPosition();
-
-		platform->SetTransform(position.x, position.y);
-
-
-
-		
-		level->RenderLevel("sprites/background.png");
-		jelly->RenderActor("sprites/platform.png");
+		bluePlayer->RenderActor("sprites/blue.png");
+	
+		redActor->RenderActor("sprites/red.png");
 		platform->RenderActor("sprites/platform.png");
+		ball->RenderActor("sprites/ball.png");
 
 		// loads in the renderer
 		SDL_RenderPresent(level->window->sdlRenderer);
+
 		SDL_RenderClear(level->window->sdlRenderer);
-		SDL_Delay(20);
+
+		// checks if close button has been pressed and exits if so
+
+		SDL_PollEvent(&e);
+
+			if (e.type == SDL_QUIT)
+				{
+					break;
+				}
+
 	}
 
-	delete(jelly);
+	//delete(jelly);
 	delete(level);
 	delete(gameWindow);
 

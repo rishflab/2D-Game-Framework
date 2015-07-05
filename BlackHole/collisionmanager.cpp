@@ -26,34 +26,42 @@ void CollisionManager::Update()
 		
 			//player->TakeDamage(actorB);
 
-			//printf("%s, % s\n", actorAName, actorBName);
+			//printf("%s, % s\n", actorA->name, actorB->name);
+	
 
 
-			if (actorA->name == "player")
+			if (actorA->name == "bluePlayer")
 			{
+
+
+				printf("%s, % s\n", ((Player*)actorA)->hitboxes[1].name  , actorB->name);
+
 				for (b2Body* body = level->b2level->GetBodyList(); body; body = body->GetNext())
 				{
 					Actor* actor = ((Actor*)body->GetUserData());
 					if (actor == actorB)
 					{
-						(Player*)actorA->takeDamage(actorB->);
-					}
-					
+						((Player*)actorA)->TakeDamage(actorB);
+					}				
 				}	
 			}
-			else if (actorB->name == "player")
+			else if (actorB->name == "bluePlayer")
 			{
-
+				printf("%s, % s\n", ((Player*)actorB)->hitboxes[1].name, actorA->name);
+			
+				for (b2Body* body = level->b2level->GetBodyList(); body; body = body->GetNext())
+				{
+					Actor* actor = ((Actor*)body->GetUserData());
+					if (actor == actorA)
+					{
+						((Player*)actorB)->TakeDamage(actorA);
+					}
+				}
 			}
 			else
 			{
 				//non player objects collided
 			}
-
-
-	
-
-
 
 			/*if (i == 1)
 			{
@@ -66,10 +74,8 @@ void CollisionManager::Update()
 	}
 }
 
-
 void CollisionManager::Debug_PrintActors()
 {
-
 	for (b2Body* b = level->b2level->GetBodyList(); b; b = b->GetNext())
 	{
 		Actor* bodyName = ((Actor*)b->GetUserData());
@@ -79,4 +85,3 @@ void CollisionManager::Debug_PrintActors()
 
 	
 }
-
