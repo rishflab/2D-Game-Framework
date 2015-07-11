@@ -61,7 +61,7 @@ void Actor::AddHitBox(Actor* actor)
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 	
-	body->CreateFixture(&fixtureDef);
+	b2fixture = body->CreateFixture(&fixtureDef);
 }
 
 
@@ -79,7 +79,8 @@ void Actor::AddDynamicHitBox(Actor* actor)
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 
-	body->CreateFixture(&fixtureDef);
+	b2fixture = body->CreateFixture(&fixtureDef);
+	 
 
 
 }
@@ -93,17 +94,22 @@ void Actor::UpdatePosition()
 
 
 void Actor::DestroyBody()
-{
-	b2Body* node = level->b2level->GetBodyList();
-	while (node)
-	{
-		b2Body* b = node;
-		node = node->GetNext();
 
-		Actor* actor = (Actor*)b->GetUserData();
-		
-		level->b2level->DestroyBody(b);
-	}
+{
+	level->b2level->DestroyBody(body);
+
+	//b2Body* node = level->b2level->GetBodyList();
+	//while (node)
+	//{
+	//	b2Body* b = node;
+	//	node = node->GetNext();
+
+	//	Actor* actor = (Actor*)b->GetUserData();
+	//	
+	//	b->DestroyFixture(b2fixture);;
+	//	level->b2level->DestroyBody(b);
+
+	//}
 }
 
 //void Actor::RespondToCollision(Actor* actorA, Actor* actorB)

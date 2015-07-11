@@ -5,6 +5,10 @@
 #include <stdio.h>
 #include "String.h"
 #include "window.h"
+#include "actor.h"
+
+
+class Actor;
 
 class Level
 {
@@ -22,7 +26,7 @@ public:
 
 	Level(Window* window, b2Vec2 gravity);
 	
-	void DestroyActor();
+	void DestroyActor(Actor* actor);
 	void RenderLevel(char* filePath);
 	void Step();
 private:

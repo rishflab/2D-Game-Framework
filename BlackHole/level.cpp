@@ -33,27 +33,21 @@ void Level::RenderLevel(char* filePath)
 	SDL_DestroyTexture(texture);
 }
 
-//void Level::DestroyActor()
-//{
-//	b2Body* node = b2level->GetBodyList();
-//
-////
-//
-//
-//	while (node)
-//	{
-//		b2Body* b = node;
-//		node = node->GetNext();
-//
-//		b->DestroyFixture();
-//		b2level->DestroyBody(b);
-//
-//		
-//
-//		
-//
-//		Actor* actor = (Actor*)b->GetUserData();
-//		
-//		
-//	}
-//}
+void Level::DestroyActor(Actor* actor)
+{
+	b2Body* next = NULL;
+
+	//actor->body->GetNext();
+
+	//next = actor->body->GetNext();
+
+	//commented out because fixtures are automatically destroyed when parent body is destroyed
+	//b->DestroyFixture(b->GetFixtureList());
+
+	b2level->DestroyBody(actor->body);
+	delete actor;
+	//Actor* actor = (Actor*)b->GetUserData();
+
+	//b->DestroyFixture(actor->b2fixture);
+	//b2level->DestroyBody(b);
+}

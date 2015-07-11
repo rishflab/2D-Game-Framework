@@ -1,18 +1,20 @@
 #pragma once
+#include "level.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "Box2D\Box2D.h"
 #include <stdio.h>
 #include "String.h"
 #include "window.h"
-#include "level.h"
 
 
-
+class Level;
 
 class Actor
 {
 public:
+
+	Level* level;
 
 	Actor(Level* level, char* name);
 	void RenderActor(char* filePath);
@@ -29,7 +31,8 @@ public:
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape playerBox;
-	b2FixtureDef fixtureDef;\
+	b2FixtureDef fixtureDef;
+	b2Fixture* b2fixture;
 
 	//actor transform variables
 	float32 x; 
@@ -38,7 +41,8 @@ public:
 	float32 h;
 	float32 angle;
 
-	Level* level;
+	bool destroyable = false;
+
 
 private:
 	

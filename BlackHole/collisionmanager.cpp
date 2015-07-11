@@ -15,6 +15,7 @@ void CollisionManager::AddActor(Actor* actor)
 
 void CollisionManager::Update()
 {
+	//Debug_PrintActors();
 	for (b2Contact* contact = level->b2level->GetContactList();
 		contact;
 		contact = contact->GetNext())
@@ -27,8 +28,6 @@ void CollisionManager::Update()
 			//player->TakeDamage(actorB);
 
 			//printf("%s, % s\n", actorA->name, actorB->name);
-	
-
 
 			if (actorA->name == "bluePlayer")
 			{
@@ -58,20 +57,59 @@ void CollisionManager::Update()
 					}
 				}
 			}
+
+			if (actorA->name == "redActor")
+			{
+				printf("%s, % s\n", ((Player*)actorA)->name, actorB->name);
+
+				for (b2Body* body = level->b2level->GetBodyList(); body; body = body->GetNext())
+				{
+					Actor* actor = ((Actor*)body->GetUserData());
+					if (actor == actorB)
+					{
+						actorA->destroyable = true;
+					}
+				}
+			}
+			else if (actorB->name == "redActor")
+			{
+				printf("%s, % s\n", ((Player*)actorB)->name, actorA->name);
+
+				for (b2Body* body = level->b2level->GetBodyList(); body; body = body->GetNext())
+				{
+					Actor* actor = ((Actor*)body->GetUserData());
+					if (actor == actorA)
+					{
+						actor->destroyable = true;
+					}
+				}
+			}
 			else
 			{
 				//non player objects collided
 			}
-
-			/*if (i == 1)
-			{
-				i = 0;
-				printf("%p %p\n", actorA, actorB);
-
-			}*/
-
 		}
 	}
+
+
+	b2Body* node = level->b2level->GetBodyList();
+	while (node)
+	{
+		b2Body* b = node;
+		node = node->GetNext();
+
+		Actor* actor = (Actor*)b->GetUserData();
+		
+		if (actor->destroyable)
+		{
+			actor->DestroyBody();
+			//level->b2level->DestroyBody(b);
+			delete actor;
+
+			Debug_PrintActors();
+		}
+	}
+	
 }
 
 void CollisionManager::Debug_PrintActors()

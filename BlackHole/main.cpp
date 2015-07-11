@@ -62,6 +62,7 @@ int main(){
 	//printf("\n%p\n%p\n%p\n%p\n", ball, redActor, bluePlayer, platform);
 
 
+
 	collisionManager->Debug_PrintActors();
 
 	while (1)
