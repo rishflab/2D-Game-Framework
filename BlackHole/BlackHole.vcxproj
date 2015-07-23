@@ -59,7 +59,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\BlackHole\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;Box2D.lib;chipmunk.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,8 +84,10 @@
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="collisionmanager.cpp" />
     <ClCompile Include="level.cpp" />
+    <ClCompile Include="platform.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="projectile.cpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -94,8 +96,10 @@
     <ClInclude Include="collisionmanager.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="level.h" />
+    <ClInclude Include="platform.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="projectile.h" />
+    <ClInclude Include="renderer.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

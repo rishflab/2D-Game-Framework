@@ -1,21 +1,24 @@
 #include "level.h"
 
-Level::Level(Window* window, b2Vec2 gravity)
-:window(window), gravity(gravity)
+Level::Level(Window* window, cpVect gravity)
+	:window(window)
 {
-	b2level = new b2World(gravity);
 
-	timeStep = 1.0f / 50.0f;
-
-	velocityIterations = 6;
-	positionIterations = 2;
 	
+	space = cpSpaceNew();
+	cpSpaceSetGravity(space, gravity);
+
+
+	
+
+	cpSpaceSetIterations(space, 60);	
 }
 
-void Level::Step()
-{
-	b2level->Step(timeStep, velocityIterations, positionIterations);
-}
+//void Level::Step()
+//{
+//	Step(timeStep, velocityIterations, positionIterations);
+//}
+
 
 
 void Level::RenderLevel(char* filePath)
@@ -33,21 +36,20 @@ void Level::RenderLevel(char* filePath)
 	SDL_DestroyTexture(texture);
 }
 
-void Level::DestroyActor(Actor* actor)
-{
-	b2Body* next = NULL;
-
-	//actor->body->GetNext();
-
-	//next = actor->body->GetNext();
-
-	//commented out because fixtures are automatically destroyed when parent body is destroyed
-	//b->DestroyFixture(b->GetFixtureList());
-
-	b2level->DestroyBody(actor->body);
-	delete actor;
-	//Actor* actor = (Actor*)b->GetUserData();
-
-	//b->DestroyFixture(actor->b2fixture);
-	//b2level->DestroyBody(b);
-}
+//void Level::DestroyActor(Actor* actor)
+//{
+//	b2Body* next = NULL;
+//
+//	//actor->body->GetNext();
+//
+//	//next = actor->body->GetNext();
+//
+//	//commented out because fixtures are automatically destroyed when parent body is destroyed
+//	//b->DestroyFixture(b->GetFixtureList());
+//	DestroyBody((b2Body*)actor);
+//	delete actor;
+//	//Actor* actor = (Actor*)b->GetUserData();
+//
+//	//b->DestroyFixture(actor->b2fixture);
+//	//b2level->DestroyBody(b);
+//}

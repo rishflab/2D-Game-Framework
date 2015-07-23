@@ -1,32 +1,32 @@
 #pragma once
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include "Box2D\Box2D.h"
 #include <stdio.h>
 #include "String.h"
 #include "window.h"
-#include "actor.h"
+#include "Chipmunk\chipmunk.h"
+//#include "actor.h"
 
 
-class Actor;
+
 
 class Level
 {
 public:
 
-	
-	b2Vec2 gravity;
-	b2World* b2level;
-	float32 LEVEL_WIDTH = 21.33f;
-	float32 LEVEL_HEIGHT = 12.0f;
-	Window* window;
-	float32 timeStep;
-	int32 velocityIterations;
-	int32 positionIterations;
+	cpSpace* space;
 
-	Level(Window* window, b2Vec2 gravity);
+	cpFloat LEVEL_WIDTH = 32.0f;
+	cpFloat LEVEL_HEIGHT = 28.0f;
+	Window* window;
+
+	cpFloat timeStep;
+	int velocityIterations;
+	int positionIterations;
+
+	Level(Window* window, cpVect gravity);
 	
-	void DestroyActor(Actor* actor);
+	//void DestroyActor(Actor* actor);
 	void RenderLevel(char* filePath);
 	void Step();
 private:

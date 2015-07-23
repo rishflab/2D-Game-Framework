@@ -1,20 +1,41 @@
 #pragma once
-#include "Box2D\Box2D.h"
+#include "level.h"
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
 #include <stdio.h>
 #include "String.h"
 #include "window.h"
-#include "level.h"
+#include <iostream>
 #include "actor.h"
+#include "Chipmunk\chipmunk.h"
 
-// class for ball which inherits from actor and is influenced by physics. In this class, unlike the actor, the x and y coordinates represent the centre
-// of the Ball object.(Actors' x and y represent the top left of the Actor object.)
+#define BALL_TYPE 1
+
 class Ball : public Actor
 {
 public:
-	b2CircleShape playerBox;
 
-	Ball::Ball(Level* level, char* name);
-	void AddDynamicHitBox(Ball* ball);
+	Ball(Level* level, char* name);
 
-private:
+	void RenderActor(char* filePath) ;
+
+	void DestroyBody();
+
+	cpCollisionHandler* handler;
+
+	//virtual void DestroyBody();
+
+	
+//private:
+
+	//cpBool(BeginP*)(cpArbiter *arb, cpSpace *space, cpDataPointer* data);
+
+	
+	//static  void SPostStepRemove(cpSpace *space, cpShape *shape, void *unused);
 };
+
+static cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data);
+
+//static cpBool SBegin(cpArbiter *arb, cpSpace *space, cpDataPointer* data);
+
+static void PostStepRemove(cpSpace *space, cpShape *shape, void *unused);

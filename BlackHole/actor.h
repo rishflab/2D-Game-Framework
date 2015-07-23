@@ -2,48 +2,61 @@
 #include "level.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include "Box2D\Box2D.h"
 #include <stdio.h>
 #include "String.h"
 #include "window.h"
+#include <iostream>
+#include "Chipmunk\chipmunk.h"
 
 
-class Level;
 
-class Actor
+//class Level;
+
+class Actor 
 {
 public:
 
-	Level* level;
+	//virtual void RenderActor(char* filePath) = 0;
+	//virtual void SetTransform(cpFloat x, cpFloat y) = 0;
+	//virtual void SetSize(cpFloat w, cpFloat h) =  0;
+	//virtual void UpdatePosition() = 0;
+	//virtual void AddHitBox(Actor* actor) = 0;
+	//virtual void AddDynamicHitBox(Actor* actor) = 0;
+	//virtual void DestroyBody();
 
 	Actor(Level* level, char* name);
-	void RenderActor(char* filePath);
-	void SetTransform(float32 x, float32 y);
-	void SetSize(float32 w, float32 h);
-	void UpdatePosition();
+	//void RenderActor(char* filePath) ;
+	void SetTransform(cpFloat x, cpFloat y) ;
+	void SetSize(cpFloat w, cpFloat h) ;
+	void UpdatePosition() ;
 	void AddHitBox(Actor* actor);
-	void AddDynamicHitBox(Actor* actor);
+	void AddDynamicHitBox(Actor* actor) ;
 	void DestroyBody();
+	
+	cpShape* shape;
+
+//protected:
+
+	Level* level;
+	cpBody* body;
+	
+	~Actor();
+
+	//cpCollisionHandler *handler;
+	
+
+	cpFloat w;
+	cpFloat h;
 
 	char* name;
-
-	//actor physics variables
-	b2BodyDef bodyDef;
-	b2Body* body;
-	b2PolygonShape playerBox;
-	b2FixtureDef fixtureDef;
-	b2Fixture* b2fixture;
-
-	//actor transform variables
-	float32 x; 
-	float32 y;
-	float32 w;
-	float32 h;
-	float32 angle;
 
 	bool destroyable = false;
 
 
-private:
+	//virtual cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)= 0;
+	//static int Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data);
+
+	//static void PostStepRemove(cpSpace *space, cpShape *shape, void *unused);
+	//virtual void PostStepRemove(cpSpace *space, cpShape *shape, void *unused) = 0;
 	
 };
