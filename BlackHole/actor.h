@@ -7,10 +7,11 @@
 #include "window.h"
 #include <iostream>
 #include "Chipmunk\chipmunk.h"
+#include "renderer.h"
 
 
 
-//class Level;
+class Level;
 
 class Actor 
 {
@@ -24,33 +25,37 @@ public:
 	//virtual void AddDynamicHitBox(Actor* actor) = 0;
 	//virtual void DestroyBody();
 
-	Actor(Level* level, char* name);
-	//void RenderActor(char* filePath) ;
+	//Actor(Level* level, char* name);
+	virtual void RenderActor() =0;
 	void SetTransform(cpFloat x, cpFloat y) ;
 	void SetSize(cpFloat w, cpFloat h) ;
 	void UpdatePosition() ;
 	void AddHitBox(Actor* actor);
 	void AddDynamicHitBox(Actor* actor) ;
 	void DestroyBody();
+
 	
 	cpShape* shape;
 
-//protected:
-
-	Level* level;
-	cpBody* body;
+	//Level* level;
+	//char* name;
 	
-	~Actor();
+	cpBody* body;
+	Uint32 index;
 
-	//cpCollisionHandler *handler;
+
 	
 
 	cpFloat w;
 	cpFloat h;
 
-	char* name;
+
 
 	bool destroyable = false;
+
+
+	
+	//~Actor();
 
 
 	//virtual cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)= 0;

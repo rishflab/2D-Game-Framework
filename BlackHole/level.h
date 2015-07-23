@@ -5,10 +5,10 @@
 #include "String.h"
 #include "window.h"
 #include "Chipmunk\chipmunk.h"
-//#include "actor.h"
+#include "actor.h"
+#include <vector>
 
-
-
+class Actor;
 
 class Level
 {
@@ -25,10 +25,20 @@ public:
 	int positionIterations;
 
 	Level(Window* window, cpVect gravity);
+
+	std::vector<Actor*> actorVec;
 	
+
+
 	//void DestroyActor(Actor* actor);
-	void RenderLevel(char* filePath);
-	void Step();
+	void RenderLevel();
+
+	void AddActor(Actor* actor);
+
+	void CleanUpActors();
+
+	void DeleteActor(Actor* actor);
+	
 private:
 
 	

@@ -30,6 +30,7 @@ Level* level = new Level(gameWindow, gravity);
 
 Ball* ball = new Ball(level, "ball");
 
+
 Platform* platform = new Platform(level, "platform");
 
 SDL_Event event;
@@ -54,6 +55,7 @@ Uint32 Tick(Uint32 interval,  void* param)
 	time = SDL_GetTicks();
 	printf("ticks : %d, deltaTime: %d\n", time, time - oldTime);
 	cpSpaceStep(level->space, (time - oldTime) / 1000.0f);
+	level->CleanUpActors();
 	
 	SDL_UserEvent userevent;
 
@@ -89,13 +91,18 @@ Uint32 Tick(Uint32 interval,  void* param)
 	//printf("ballBody is at (%5.2f, %5.2f). It's velocity is (%5.2f, %5.2f)\n", pos.x, pos.y, vel.x, vel.y);
 	//printf("ballBody is at (%5.2f, %5.2f). It's velocity is (%5.2f, %5.2f)\n", pos.x, pos.y, vel.x, vel.y);
 
-	platform->RenderActor("sprites/blue.png");
+	//->RenderActor("sprites/blue.png");
 
-	ball->RenderActor("sprites/ball.png");
+	//ball->RenderActor();
 	//////// loads in the renderer
+
+	level->RenderLevel();
 	SDL_RenderPresent(level->window->sdlRenderer);
 
 	SDL_RenderClear(level->window->sdlRenderer);
+
+	
+	
 
 	////// checks if close button has been pressed and exits if so
 
@@ -110,7 +117,25 @@ Uint32 Tick(Uint32 interval,  void* param)
 
 int main(){
 
+	level->AddActor(platform);
+	level->AddActor(ball);
+
+
+	std::cout << ball << std::endl;
+	std::cout << platform << std::endl;
+	std::cout << std::endl;
+
+	std::vector<Actor*>::const_iterator i;
+	for (i = level->actorVec.begin(); i != level->actorVec.end(); ++i)
+	{
+		std::cout << (*i) << std::endl;
+
+	}
+
 	
+
+
+	//std::cout << cpShapeGetUserData(ball->shape) << std::endl;
 	//handler->postSolveFunc = (cpCollisionPostSolveFunc)PostStepRemove;
 
 	myfile.open("example.txt");
@@ -119,6 +144,8 @@ int main(){
 	while (1)
 	{
 		SDL_PollEvent(&event);
+
+
 
 		if (event.type == SDL_QUIT)
 		{

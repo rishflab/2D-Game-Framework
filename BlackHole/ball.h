@@ -17,15 +17,23 @@ public:
 
 	Ball(Level* level, char* name);
 
-	void RenderActor(char* filePath) ;
+	void RenderActor();
 
 	void DestroyBody();
 
 	cpCollisionHandler* handler;
 
-	//virtual void DestroyBody();
+	Uint32 collisionID = BALL_TYPE;
+	cpCollisionType collisionMask = BALL_TYPE;
 
 	
+
+	//virtual void DestroyBody();
+
+	Level* level;
+	char* name;
+	//bool destroyable = false;
+
 //private:
 
 	//cpBool(BeginP*)(cpArbiter *arb, cpSpace *space, cpDataPointer* data);

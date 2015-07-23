@@ -1,8 +1,8 @@
 #include "platform.h"
 
 Platform::Platform(Level* level, char* name)
-	//:level(level), name(name)
-	:Actor(level, name)
+	:level(level), name(name)
+	//:Actor(level, name)
 {
 	//body = cpSpaceGetStaticBody(level->space);
 
@@ -35,7 +35,7 @@ Platform::Platform(Level* level, char* name)
 }
 
 
-void Platform::RenderActor(char* filePath)
+void Platform::RenderActor()
 {
 
 	SDL_Surface* surface;
@@ -43,7 +43,7 @@ void Platform::RenderActor(char* filePath)
 
 
 	// loads image sources
-	surface = IMG_Load(filePath);
+	surface = IMG_Load("sprites/blue.png");
 	texture = SDL_CreateTextureFromSurface(level->window->sdlRenderer, surface);
 	
 
