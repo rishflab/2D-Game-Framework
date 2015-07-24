@@ -2,17 +2,17 @@
 
 
 Level::Level(Window* window, cpVect gravity)
-	:window(window)
+:window(window)
 {
 
-	
+
 	space = cpSpaceNew();
 	cpSpaceSetGravity(space, gravity);
 	cpSpaceSetIterations(space, 100);
 
-	
+
 	actorVec.reserve(10);
-	
+
 }
 
 void Level::RenderLevel()
@@ -30,7 +30,7 @@ void Level::RenderLevel()
 void Level::AddActor(Actor* actor)
 {
 	//actorVec.resize(actorVec.capacity() + 1);
-	actorVec.push_back(actor);	
+	actorVec.push_back(actor);
 }
 
 void Level::CleanUpActors()
@@ -42,15 +42,15 @@ void Level::CleanUpActors()
 	for (i = actorVec.begin(); i != actorVec.end(); ++i)
 	{
 		//j++;
-	
-			if ((*i)->destroyable == true)
-			{
-				actorVec.erase(i);
-				break;
-			}
-		}
 
-	
+		if ((*i)->destroyable == true)
+		{
+			actorVec.erase(i);
+			break;
+		}
+	}
+
+
 
 	//actorVec.resize(actorVec.capacity() - 1);
 
@@ -74,7 +74,7 @@ void Level::DeleteActor(Actor* actor)
 				break;
 			}
 		}
-		
+
 	}
 
 	actorVec.resize(actorVec.capacity() - 1);

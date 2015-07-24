@@ -55,16 +55,16 @@ std::ofstream myfile;
 
 
 
-Uint32 Tick(Uint32 interval,  void* param)
+Uint32 Tick(Uint32 interval, void* param)
 {
-	
+
 	oldTime = time;
 	time = SDL_GetTicks();
 	printf("ticks : %d, deltaTime: %d\n", time, time - oldTime);
 	cpSpaceStep(level->space, (time - oldTime) / 1000.0f);
 	player->PlayerMove();
 	level->CleanUpActors();
-	
+
 	SDL_UserEvent userevent;
 
 
@@ -82,9 +82,9 @@ Uint32 Tick(Uint32 interval,  void* param)
 	//printf("tick: %d\n", k);
 
 
-	
+
 	//printf("time: %d\n", deltaTime);
-	
+
 	//cpSpaceStep(level->space, 1.0f/25.0f);
 
 
@@ -109,8 +109,8 @@ Uint32 Tick(Uint32 interval,  void* param)
 
 	SDL_RenderClear(level->window->sdlRenderer);
 
-	
-	
+
+
 
 	////// checks if close button has been pressed and exits if so
 
@@ -146,7 +146,7 @@ int main(){
 
 	}
 
-	
+
 
 
 	//std::cout << cpShapeGetUserData(ball->shape) << std::endl;

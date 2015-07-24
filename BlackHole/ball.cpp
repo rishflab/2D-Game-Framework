@@ -1,7 +1,7 @@
 #include "ball.h"
 
 Ball::Ball(Level* level, char* name)
-	//:Actor(level, name)
+//:Actor(level, name)
 :level(level), name(name)
 {
 	cpFloat radius = 1.0f;
@@ -35,7 +35,7 @@ Ball::Ball(Level* level, char* name)
 	//handler = cpSpaceAddCollisionHandler(level->space, 1, 2);
 
 	//handler->beginFunc = (cpCollisionBeginFunc)Begin;
-	
+
 
 }
 
@@ -51,7 +51,7 @@ void Ball::RenderActor()
 	// loads image sources
 	surface = IMG_Load("sprites/ball.png");
 
-	
+
 	//SDL_Renderer* renderer = level->window->sdlRenderer;
 	texture = SDL_CreateTextureFromSurface(level->window->sdlRenderer, surface);
 	SDL_FreeSurface(surface);
@@ -74,7 +74,7 @@ void Ball::RenderActor()
 }
 
 
-void PostStepRemove(cpSpace *space, cpShape *shape, void *unused) 
+void PostStepRemove(cpSpace *space, cpShape *shape, void *unused)
 {
 
 	((Actor*)cpShapeGetUserData(shape))->destroyable = true;
@@ -89,14 +89,14 @@ void PostStepRemove(cpSpace *space, cpShape *shape, void *unused)
 
 
 
-	
-	
-	
-	
+
+
+
+
 }
 
 
-cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data) 
+cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)
 {
 	// Get the cpShapes involved in the collision
 	// The order will be the same as you defined in the handler definition
@@ -108,10 +108,10 @@ cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)
 	std::cout << cpShapeGetCollisionType(a) << ", " << cpShapeGetCollisionType(b) << std::endl;
 	// The macro expands exactly as if you had typed this:
 	// cpShape *a, *b; cpArbiterGetShapes(arb, &a, &b);
-	
+
 	// Add a post step callback to safely remove the body and shape from the space.
 	// Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
-	
+
 	//
 	//std::cout << data << std::endl;
 	//if (*(cpCollisionType*)(cpShapeGetUserData(a)) == BALL_TYPE)
@@ -122,7 +122,7 @@ cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)
 	//{
 	//	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)PostStepRemove, b, NULL);
 	//}
-	
+
 	std::cout << cpShapeGetUserData(a) << std::endl;
 	if (((Ball*)cpShapeGetUserData(a))->collisionID == BALL_TYPE)
 	{
@@ -138,7 +138,7 @@ cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)
 	// The object is dead, don’t process the collision further
 	return 1;
 
-	
+
 }
 
 void Ball::DestroyBody()

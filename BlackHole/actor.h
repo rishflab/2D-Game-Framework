@@ -13,7 +13,7 @@
 
 class Level;
 
-class Actor 
+class Actor
 {
 public:
 
@@ -27,24 +27,24 @@ public:
 
 	//Actor(Level* level, char* name);
 	virtual void RenderActor() = 0;
-	void SetTransform(cpFloat x, cpFloat y) ;
-	void SetSize(cpFloat w, cpFloat h) ;
-	void UpdatePosition() ;
+	void SetTransform(cpFloat x, cpFloat y);
+	void SetSize(cpFloat w, cpFloat h);
+	void UpdatePosition();
 	void AddHitBox(Actor* actor);
-	void AddDynamicHitBox(Actor* actor) ;
+	void AddDynamicHitBox(Actor* actor);
 	void DestroyBody();
 
-	
+
 	cpShape* shape;
 
 	//Level* level;
 	//char* name;
-	
+
 	cpBody* body;
 	Uint32 index;
 
 
-	
+
 
 	cpFloat w;
 	cpFloat h;
@@ -54,7 +54,7 @@ public:
 	bool destroyable = false;
 
 
-	
+
 	//~Actor();
 
 
@@ -63,5 +63,5 @@ public:
 
 	//static void PostStepRemove(cpSpace *space, cpShape *shape, void *unused);
 	//virtual void PostStepRemove(cpSpace *space, cpShape *shape, void *unused) = 0;
-	
+
 };
