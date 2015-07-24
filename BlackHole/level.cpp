@@ -1,5 +1,6 @@
 #include "level.h"
 
+
 Level::Level(Window* window, cpVect gravity)
 	:window(window)
 {
@@ -7,33 +8,77 @@ Level::Level(Window* window, cpVect gravity)
 	
 	space = cpSpaceNew();
 	cpSpaceSetGravity(space, gravity);
+	cpSpaceSetIterations(space, 100);
 
+	
+	actorVec.reserve(10);
+	
+}
+
+void Level::RenderLevel()
+{
+	std::vector<Actor*>::const_iterator i;
+	for (i = actorVec.begin(); i != actorVec.end(); ++i)
+	{
+		if ((Actor*)(*i) != NULL)
+		{
+			((Actor*)(*i))->RenderActor();
+		}
+	}
+}
+
+void Level::AddActor(Actor* actor)
+{
+	//actorVec.resize(actorVec.capacity() + 1);
+	actorVec.push_back(actor);	
+}
+
+void Level::CleanUpActors()
+{
+
+	std::vector<Actor*>::const_iterator i;
+	//Uint32 j = 0;
+
+	for (i = actorVec.begin(); i != actorVec.end(); ++i)
+	{
+		//j++;
+	
+			if ((*i)->destroyable == true)
+			{
+				actorVec.erase(i);
+				break;
+			}
+		}
 
 	
 
-	cpSpaceSetIterations(space, 60);	
+	//actorVec.resize(actorVec.capacity() - 1);
+
 }
 
-//void Level::Step()
-//{
-//	Step(timeStep, velocityIterations, positionIterations);
-//}
-
-
-
-void Level::RenderLevel(char* filePath)
+void Level::DeleteActor(Actor* actor)
 {
 
-	SDL_Surface* surface;
-	SDL_Texture* texture;
+	std::vector<Actor*>::const_iterator i;
+	//Uint32 j = 0;
 
-	// loads image sources
-	surface = IMG_Load(filePath);
-	texture = SDL_CreateTextureFromSurface(window->sdlRenderer, surface);
-	SDL_FreeSurface(surface);
+	for (i = actorVec.begin(); i != actorVec.end(); ++i)
+	{
+		//j++;
 
-	SDL_RenderCopyEx(window->sdlRenderer, texture, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
-	SDL_DestroyTexture(texture);
+		if (actor == *i)
+		{
+			if (actor->destroyable == true)
+			{
+				actorVec.erase(i);
+				break;
+			}
+		}
+		
+	}
+
+	actorVec.resize(actorVec.capacity() - 1);
+	//actorVec.erase(1);
 }
 
 //void Level::DestroyActor(Actor* actor)

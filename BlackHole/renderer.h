@@ -6,25 +6,24 @@
 #include "window.h"
 #include "Chipmunk\chipmunk.h"
 #include "actor.h"
-#include "level.h"
-
-
-
-
-class Renderer
-{
-public:
-
-	
-	Window* window;
-	Level* level;
-
-	
-	Renderer(Window* window, Level level);
-
-	void RenderLevel(char* filePath);
-
-private:
-
-
-};
+//#include "level.h"
+//
+//class Renderer
+//{
+//public:
+//
+//
+//	//Renderer(Window* window, Level level);
+//
+////	Renderer(Window* window, Level* level);
+//
+//	Window* window;
+//	Level* level;
+//
+//
+//	void Draw2D();
+//
+//private:
+//
+//
+//};

@@ -8,21 +8,16 @@
 //}
 
 
-Actor::Actor(Level* level, char* name)
-	:level(level), name(name)
-{
-
-
-
-}
-
-Actor::~Actor()
-{
-}
-
-
-
-
+//Actor::Actor(Level* level, char* name)
+//	:level(level), name(name)
+//{
+//
+//
+//}
+//
+//Actor::~Actor()
+//{
+//}
 
 
 //

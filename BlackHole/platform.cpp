@@ -1,8 +1,8 @@
 #include "platform.h"
 
 Platform::Platform(Level* level, char* name)
-	//:level(level), name(name)
-	:Actor(level, name)
+	:level(level), name(name)
+	//:Actor(level, name)
 {
 	//body = cpSpaceGetStaticBody(level->space);
 
@@ -10,22 +10,22 @@ Platform::Platform(Level* level, char* name)
 	
 	body = cpSpaceAddBody(level->space, cpBodyNewStatic());
 	cpBodySetPosition(body, cpv(0.0f, 0.0f));
-
+	//cpBodySetAngle(body, (45.0f / 180.0f)* CP_PI);
 	// Create segments around the edge of the screen.
 
 	//cpVect platform[] = { cpv(-5.0f, 0.5f), cpv(5.0f, 0.5f), cpv(5.0f, -0.5f), cpv(5.0f, -0.5f) };
 
-	cpVect platform[] = { cpv(-5.0f, 0.0f), cpv(5.0f, 0.0f), cpv(5.0f, -1.0f), cpv(5.0f, -1.0f) };
+	cpVect verts[] = { cpv(5.0f, 0.0f), cpv(-5.0f, 0.0f), cpv(-5.0f, -1.0f), cpv(5.0f, -1.0f) };
 
 	//cpSegmentShape* cpSegmentShapeAlloc(void);
 	//cpSegmentShape* cpSegmentShapeInit(cpSegmentShape *seg, cpBody *body, cpVect a, cpVect b, cpFloat radius);
 	//cpShape* cpSegmentShapeNew(cpBody *body, cpVect a, cpVect b, cpFloat radius)
 
 	//shape = cpSpaceAddShape(level->space, cpSegmentShapeNew(body, cpv(-5.0f, 0.0f), cpv(5.0f, 0.0f), 0.0f));
-	shape = cpSpaceAddShape(level->space, cpPolyShapeNewRaw(body, 4, platform , 0.0f));
+	shape = cpSpaceAddShape(level->space, cpPolyShapeNewRaw(body, 4, verts , 0.0f));
 
 	cpShapeSetUserData(shape, this);
-
+	
 	cpShapeSetElasticity(shape, 1.0f);
 	cpShapeSetFriction(shape, 1.0f);
 	cpShapeSetCollisionType(shape, PLATFORM_TYPE);
@@ -35,7 +35,7 @@ Platform::Platform(Level* level, char* name)
 }
 
 
-void Platform::RenderActor(char* filePath)
+void Platform::RenderActor()
 {
 
 	SDL_Surface* surface;
@@ -43,7 +43,7 @@ void Platform::RenderActor(char* filePath)
 
 
 	// loads image sources
-	surface = IMG_Load(filePath);
+	surface = IMG_Load("sprites/blue.png");
 	texture = SDL_CreateTextureFromSurface(level->window->sdlRenderer, surface);
 	
 

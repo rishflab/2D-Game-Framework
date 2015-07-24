@@ -1,8 +1,8 @@
 #include "ball.h"
 
 Ball::Ball(Level* level, char* name)
-	:Actor(level, name)
-//:(level(level), name(name)
+	//:Actor(level, name)
+:level(level), name(name)
 {
 	cpFloat radius = 1.0f;
 	cpFloat mass = 1.0f;
@@ -14,7 +14,7 @@ Ball::Ball(Level* level, char* name)
 	// The cpSpaceAdd*() functions return the thing that you are adding.
 	// It's convenient to create and add an object in one line.
 	body = cpSpaceAddBody(level->space, cpBodyNew(mass, moment));
-	cpBodySetPosition(body, cpv(0.0f, 4.0f));
+	cpBodySetPosition(body, cpv(0.0f, -4.0f));
 
 
 	// Now we create the collision shape for the ball.
@@ -22,6 +22,7 @@ Ball::Ball(Level* level, char* name)
 	// They will all be attached to the body and move around to follow it.
 	shape = cpSpaceAddShape(level->space, cpCircleShapeNew(body, radius, cpvzero));
 	cpShapeSetUserData(shape, this);
+	std::cout << this << std::endl;
 	cpShapeSetFriction(shape, 0.7);
 	cpShapeSetElasticity(shape, 0.8f);
 	cpShapeSetCollisionType(shape, BALL_TYPE);
@@ -30,23 +31,28 @@ Ball::Ball(Level* level, char* name)
 	w = radius;
 	h = radius;
 
-	handler = cpSpaceAddCollisionHandler(level->space, 1, 2);
 
-	handler->beginFunc = (cpCollisionBeginFunc)Begin;
+	//handler = cpSpaceAddCollisionHandler(level->space, 1, 2);
+
+	//handler->beginFunc = (cpCollisionBeginFunc)Begin;
 	
 
 }
 
 
 
-void Ball::RenderActor(char* filePath) 
+void Ball::RenderActor()
 {
 
-	SDL_Surface* surface = NULL;
-	SDL_Texture* texture=NULL;
+	SDL_Surface* surface;
+	SDL_Texture* texture;
+
 
 	// loads image sources
-	surface = IMG_Load(filePath);
+	surface = IMG_Load("sprites/ball.png");
+
+	
+	//SDL_Renderer* renderer = level->window->sdlRenderer;
 	texture = SDL_CreateTextureFromSurface(level->window->sdlRenderer, surface);
 	SDL_FreeSurface(surface);
 
@@ -71,6 +77,21 @@ void Ball::RenderActor(char* filePath)
 void PostStepRemove(cpSpace *space, cpShape *shape, void *unused) 
 {
 
+	((Actor*)cpShapeGetUserData(shape))->destroyable = true;
+
+	cpSpaceRemoveShape(space, shape);
+	cpSpaceRemoveBody(space, cpShapeGetBody(shape));
+
+	cpBodyFree(cpShapeGetBody(shape));
+	cpShapeFree(shape);
+
+	//std::cout << cpShapeGetUserData(shape) << std::endl;
+
+
+
+	
+	
+	
 	
 }
 
@@ -90,8 +111,26 @@ cpBool Begin(cpArbiter *arb, cpSpace *space, cpDataPointer* data)
 	
 	// Add a post step callback to safely remove the body and shape from the space.
 	// Calling cpSpaceRemove*() directly from a collision handler callback can cause crashes.
-	if (a == ((Ball*)data)->shape){
-	//	cpSpaceAddPostStepCallback(space, this->PostStepRemove, a, NULL);
+	
+	//
+	//std::cout << data << std::endl;
+	//if (*(cpCollisionType*)(cpShapeGetUserData(a)) == BALL_TYPE)
+	//{
+	//	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)PostStepRemove, a, NULL);
+	//}
+	//else  if (*(cpCollisionType*)(cpShapeGetUserData(b)) == BALL_TYPE)
+	//{
+	//	cpSpaceAddPostStepCallback(space, (cpPostStepFunc)PostStepRemove, b, NULL);
+	//}
+	
+	std::cout << cpShapeGetUserData(a) << std::endl;
+	if (((Ball*)cpShapeGetUserData(a))->collisionID == BALL_TYPE)
+	{
+		cpSpaceAddPostStepCallback(space, (cpPostStepFunc)PostStepRemove, a, NULL);
+	}
+	else  if (((Ball*)cpShapeGetUserData(b))->collisionID == BALL_TYPE)
+	{
+		cpSpaceAddPostStepCallback(space, (cpPostStepFunc)PostStepRemove, b, NULL);
 	}
 
 	std::cout << "ball bounced on platform" << std::endl;

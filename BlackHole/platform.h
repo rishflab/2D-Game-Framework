@@ -19,26 +19,22 @@ public:
 
 	Platform(Level* level, char* name);
 
-	void RenderActor(char* filePath);
+	void RenderActor();
 	
 	void DestroyBody();
 
-	
 
-
+	Level* level;
+	char* name;
 	/*cpBody *body ;
 	cpShape *shape;
 
 	cpFloat w;
 	cpFloat h;
 
-
 	Level* level;
 
-
 	char* name;
-
-
 
 	bool destroyable = false;
 */

@@ -1,7 +1,7 @@
 #include "projectile.h"
 
 Projectile::Projectile(Level* level, char* name)
-	:Actor(level, name)
+	//:Actor(level, name)
 {
 
 }
